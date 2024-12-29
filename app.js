@@ -14,10 +14,7 @@ function getRandomInt(min, max) {
 
 app.get('/',(req, res) => {
     res.send(`endpoints: 
-        <br><a href="/sentences"> /sentences</a>
-        <br><a href="/sentences/1"> /sentences/:id id=1</a>
-        <br><a href="/sentences/sentence/random">/sentences/sentence/random</a>
-        <br><a href=""></a>
+        <br><a href="https://www.postman.com/buwagear/workspace/storing-sentence/documentation/39824000-671cebe3-3373-4a0b-96a5-656d9217464c">API DOCUMENTATION</a>
         `)
 });
 
