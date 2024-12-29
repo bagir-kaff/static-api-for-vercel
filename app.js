@@ -13,7 +13,7 @@ function getRandomInt(min, max) {
 
 
 app.get('/',(req, res) => {
-    res.send(`i dont know, 
+    res.send(`endpoints:, 
         <br><a href="/sentences"> /sentences</a>
         <br><a href="/sentences/1"> /sentences/:id id=1</a>
         <br><a href="/sentences/sentence/random">/sentences/sentence/random</a>
@@ -40,12 +40,14 @@ app.post('/sentences', (req, res) => {
     }
 
     console.log("new sentence is added ")
+
     const sentence = {
         id: sentences.length,
         sentence: req.body.sentence,
         length: req.body.sentence.length,
         dateadded: formattedDateTime
     }
+    
     sentences.push(sentence)
     res.status(201).send(sentence)
 });
