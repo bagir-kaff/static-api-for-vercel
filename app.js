@@ -62,6 +62,6 @@ app.get('/sentences/sentence/random', (erq, res) => {
     res.send(sentences[randomnum])
 });
 
-app.listen(PORT, () => console.log(`server running on port ${PORT}`))
+// app.listen(PORT, () => console.log(`server running on port ${PORT}`))
 
 module.exports = app;
