@@ -1,7 +1,7 @@
 const express = require('express');
 const Joi = require('joi')
 const app = express()
-const sentences = require('./sentences.js')
+let sentences = require('./sentences.js')
 
 app.use(express.json())
 
@@ -45,7 +45,7 @@ app.post('/sentences', (req, res) => {
         id: sentences.length,
         sentence: req.body.sentence,
         length: req.body.sentence.length,
-        dateadded: formattedDateTime
+        datemodified: formattedDateTime
     }
     
     sentences.push(sentence)
@@ -58,12 +58,50 @@ app.get('/sentences/:id',(req, res) => {
     res.send(sentence)
 })
 
-app.get('/sentences/sentence/random', (erq, res) => {
+app.get('/sentences/sentence/random', (req, res) => {
     const randomnum = getRandomInt(1,sentences.length-1)
     // console.log(randomnum)
     res.send(sentences[randomnum])
 });
 
-// app.listen(PORT, () => console.log(`server running on port ${PORT}`))
+app.put('/sentences/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const olderSentence = sentences.find(c => c.id === id);
+    if (!olderSentence) res.status(404).send('The sentence with the given id was not found')//404
+    const now = new Date();
+    const formattedDateTime = now.toLocaleString()
+    const schema = Joi.object({
+        sentence: Joi.string().min(6).required()
+    });
+
+    const result = schema.validate(req.body);
+
+    if (result.error) {
+        res.status(400).send(result.error.message);
+        return;
+    }
+
+    console.log("new sentence is added ")
+
+    const sentence = {
+        id: id,
+        sentence: req.body.sentence,
+        length: req.body.sentence.length,
+        datemodified: formattedDateTime
+    }
+    
+    sentences = sentences.map( s => {
+        if (s.id === id) return sentence;
+        return s;
+    })
+    res.status(201).send(sentence)
+});
+
+app.delete('/sentences/delete/all', (req,res)=>{
+    sentences.splice(1,sentences.length)
+    res.send('all sentences are deleted 👍')
+});
+
+app.listen(PORT, () => console.log(`server running on port ${PORT}`))
 
 module.exports = app;
