@@ -13,7 +13,7 @@ function getRandomInt(min, max) {
 
 
 app.get('/',(req, res) => {
-    res.send(`endpoints:, 
+    res.send(`endpoints: 
         <br><a href="/sentences"> /sentences</a>
         <br><a href="/sentences/1"> /sentences/:id id=1</a>
         <br><a href="/sentences/sentence/random">/sentences/sentence/random</a>
