@@ -2,9 +2,11 @@ const express = require('express');
 const Joi = require('joi')
 const app = express()
 const sentences = require('./sentences.js')
+
 app.use(express.json())
 
 const PORT = process.env.PORT || 1000;
+
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -24,6 +26,8 @@ app.get('/sentences', (req, res) => {
 });
 
 app.post('/sentences', (req, res) => {
+    const now = new Date();
+    const formattedDateTime = now.toLocaleString()
     const schema = Joi.object({
         sentence: Joi.string().min(6).required()
     });
@@ -39,7 +43,8 @@ app.post('/sentences', (req, res) => {
     const sentence = {
         id: sentences.length,
         sentence: req.body.sentence,
-        length: req.body.sentence.length
+        length: req.body.sentence.length,
+        dateadded: formattedDateTime
     }
     sentences.push(sentence)
     res.status(201).send(sentence)
@@ -58,3 +63,5 @@ app.get('/sentences/sentence/random', (erq, res) => {
 });
 
 app.listen(PORT, () => console.log(`server running on port ${PORT}`))
+
+module.exports = app;
