@@ -13,7 +13,7 @@ function getRandomInt(min, max) {
 
 
 app.get('/',(req, res) => {
-    res.send(`<br><a href="https://www.postman.com/buwagear/workspace/storing-sentence/documentation/39824000-671cebe3-3373-4a0b-96a5-656d9217464c">API DOCUMENTATION</a>
+    res.send(`<br><a href="https://www.postman.com/buwagear/storing-sentence-api/overview">API DOCUMENTATION</a>
 	<br><a href="https://github.com/bagir-kaff/static-api-for-vercel">repo</a>`)
 });
 
